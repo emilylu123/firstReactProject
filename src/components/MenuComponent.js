@@ -1,39 +1,26 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import DishDetail from "./DishdetailComponent";
 
 class Menu extends Component {
     constructor(props) {
         super(props);
-
+        //state declared within the constructor
         this.state = {
             selectedDish: null
         }
     }
 
     onDishSelect(dish) {
-        // setState
-        this.setState({ selectedDish: dish});
-    }
-
-    renderDish(dish) {
-        if (dish != null)
-            return(
-                <Card>
-                    <CardImg top src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
-            );
-        else
-            return(
-                <div></div>
-            );
+        // modify state by setState()
+        this.setState({
+            selectedDish: dish
+        });
     }
 
     render() {
-        const menu = this.props.dishes.map((dish) => {
+        const dishes = this.props.dishes
+        const menu = dishes.map((dish) => {
             return (
                 <div className="col-12 col-md-5 m-1">
                     <Card key={dish.id}
@@ -45,7 +32,7 @@ class Menu extends Component {
                         </CardImgOverlay>
                     </Card>
                 </div>
-            );
+            )
                 /*media method to show menu
                 <div key={dish.id} className="col-12 mt-5">
                     <Media tag="li">
@@ -58,7 +45,6 @@ class Menu extends Component {
                         </Media>
                     </Card>
                 </div>*/
-
         });
 
         return (
@@ -67,8 +53,11 @@ class Menu extends Component {
                     {menu}
                 </div>
                 <div className="row">
-                    <div  className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.state.selectedDish)}
+                    <div>
+                        {/*{this.renderDish(this.state.selectedDish)}*/}
+                        {/*dish is available as props within Dishdetail Component and can be accessed as this.props.dishes*/}
+                        {/*<DishDetail dishes={this.state.dishes} comment={this.state.comments}/>*/}
+                        <DishDetail selctedDish={this.state.selectedDish} />
                     </div>
                 </div>
             </div>
